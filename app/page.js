@@ -1,10 +1,11 @@
 import HomePage from "@/components/HomePage";
-import NavBar from "@/components/NavBar";
+import axios from "axios";
 
-export default function Home() {
+export default async function Home() {
+  const devices = (await axios.get(`${process.env.URL}/api/devices`)).data;
   return (
     <div className="">
-      <HomePage />
+      <HomePage devices={devices} />
     </div>
   );
 }
