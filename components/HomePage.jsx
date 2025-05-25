@@ -2,51 +2,53 @@
 import { Card } from "@mui/material";
 import React from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { TbCurrencyTaka } from "react-icons/tb";
+import { TbCurrencyTaka, TbReport } from "react-icons/tb";
 import { HiDeviceTablet } from "react-icons/hi";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import Link from "next/link";
 
 const HomePage = ({ devices }) => {
-  console.log("dd", devices);
-  const tahirDevice = devices.filter(
-    (x) =>
-      x.send_to == "Retail" &&
-      x.issue_by == "Tahir Ahmed" &&
-      x.is_complete == false
+  const tahirDevices = devices.filter(
+    (x) => x.send_to === "Retail" && x.issue_by === "Tahir Ahmed"
   );
-  const installDevice = devices.filter(
-    (x) => x.send_to == "Retail" && x.issue_by == "Tahir Ahmed" && x.is_complete
-  );
-  const tahirProfit = installDevice.length * 300 * 0.2;
+  const pendingDevices = tahirDevices.filter((x) => !x.is_complete);
+  const completedDevices = tahirDevices.filter((x) => x.is_complete);
+  const tahirProfit = completedDevices.length * 300 * 0.2;
 
   return (
-    <div className="relative">
-      <h1 className="text-3xl font-bold relative flex">Hi, Techinician </h1>
-      <div className="flex flex-col items-center gap-4 justify-center mt-10 p-2">
-        <Link
-          href={"/devices"}
-          className="h-30 w-3/4 shadow-md flex flex-col justify-center items-center"
-        >
-          <h1 className="text-center font-extrabold text-xl">Device In hand</h1>
-          <HiDeviceTablet className="h-10 w-10 text-red-300" />
-          <p className="text-center font-extrabold text-xl mt-2">
-            {tahirDevice.length}
-          </p>
+    <div className="p-4">
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Welcome, Technician
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <Link href="/devices" className="no-underline">
+          <Card className="p-6 hover:shadow-lg transition duration-300 bg-white flex flex-col items-center rounded-2xl">
+            <HiDeviceTablet className="h-12 w-12 text-blue-500 mb-4" />
+            <h2 className="text-xl font-semibold mb-2 text-center">
+              Device Info
+            </h2>
+            <div className="text-center space-y-1 text-base font-medium">
+              <p className="text-green-700">
+                Installed: {completedDevices.length}
+              </p>
+              <p className="text-red-700">In Hand: {pendingDevices.length}</p>
+            </div>
+          </Card>
         </Link>
-        <Card className="h-30 w-3/4 bg-gray-300 flex flex-col justify-center items-center">
-          <h1 className="text-center font-extrabold text-xl">Installed</h1>
-          <IoIosCheckmarkCircle className="h-10 w-10 text-green-300" />
-          <p className="text-center font-extrabold text-xl mt-2">
-            {installDevice.length}
-          </p>
-        </Card>
-        <Card className="h-30 w-3/4 bg-gray-300 flex flex-col justify-center items-center">
-          <h1 className="text-center font-extrabold text-xl">Profit</h1>
-          <FaBangladeshiTakaSign className="h-7 w-7 text-red-400" />
-          <p className="text-center font-extrabold text-xl mt-2 flex items-center">
+        <Link href="/report" className="no-underline">
+          <Card className="p-6 hover:shadow-lg transition duration-300 bg-white flex flex-col items-center rounded-2xl">
+            <TbReport className="h-12 w-12 text-blue-500 mb-4" />
+            <h2 className="text-xl font-semibold mb-2 text-center">Report</h2>
+          </Card>
+        </Link>
+
+        <Card className="p-6 bg-white flex flex-col items-center rounded-2xl shadow-md">
+          <FaBangladeshiTakaSign className="h-10 w-10 text-yellow-500 mb-4" />
+          <h2 className="text-xl font-semibold mb-2 text-center">Profit</h2>
+          <p className="text-2xl font-bold text-gray-700 flex items-center gap-1">
             {tahirProfit}
-            <TbCurrencyTaka />
+            <TbCurrencyTaka className="text-xl" />
           </p>
         </Card>
       </div>

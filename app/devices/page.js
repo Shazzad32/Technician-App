@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 const page = async () => {
   const devices = (await axios.get(`${process.env.URL}/api/devices`)).data;
   return (
-    <div className="h-full w-full flex items-center justify-center p-1">
+    <div className="h-[100%] w-full flex  p-1">
       <DeviceInfo devices={devices} />
     </div>
   );

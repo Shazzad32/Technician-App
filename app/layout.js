@@ -25,9 +25,11 @@ export default function RootLayout({ children }) {
       >
         {" "}
         <div className="h-screen w-fullabsolute flex flex-col">
-          <div className="flex-[1] w-full bg-orange-500"></div>
+          <div className="flex-[1] w-full bg-amber-500 flex items-center justify-center text-white font-bold uppercase">
+            Technician App
+          </div>
           <div className="flex-[8] w-full">{children}</div>
-          <div className="flex-[1] w-full flex items-center justify-center">
+          <div className="lg:hidden flex-[1] w-full flex items-center justify-center">
             <NavBar />
           </div>
         </div>
